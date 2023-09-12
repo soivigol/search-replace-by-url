@@ -10,10 +10,13 @@ With this plugin you can search and replace some content in the content or Custo
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+Soivigol Search & Replace by URLs is a plugin to make a Search and replace of the some string or number in the content, title, excerpt or custom fields available on each post.
+This search and replace is done by url. You can insert one URL or group of URLs (one per line). This feature is the big difference with others plugin to make the search and replace. 
+For example, it’s ideal to make a search and replace of a URL of your affiliates in various URLs needed. Also, you can change a name of the provider 
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Other feature is that allows insert some value in a custom field in various URLs. 
+Can be a Custom Field done with ACF, Pods or another plugin that works with WordPress functionality. This plugin was tested with Pods and ACF. It also works with repeaters. 
+If the Custom Field doesn’t exist is created automatically. It's idea to set a string in a Custom Field in bulk by URLs.
 
 == Installation ==
 
