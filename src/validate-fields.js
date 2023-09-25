@@ -29,7 +29,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @returns {boolean} Returns `true` if all the validation checks pass, otherwise returns `false`.
  */
-const validateFields = ({ toSearch, toReplace, customField, textToAdd, isSearchAndReplace, urls, setNotice }) => {
+const validateFields = ({ toSearch, toReplace, customField, textToAdd, isSearchAndReplace, emptyCustomField, urls, setNotice }) => {
 	let validationResult = true;
 
 	if ( !urls ) {
@@ -47,7 +47,7 @@ const validateFields = ({ toSearch, toReplace, customField, textToAdd, isSearchA
 		if (!customField) {
 			setNotice({ type: 'error', message: __( 'Custom Field field cannot be empty', 'soi_srbu' ) });
 			validationResult = false;
-		} else if (!textToAdd) {
+		} else if ( !textToAdd && ! emptyCustomField ) {
 			setNotice({ type: 'error', message: __( 'Text to Add field cannot be empty', 'soi_srbu' ) });
 			validationResult = false;
 		}

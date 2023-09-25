@@ -32,6 +32,7 @@ const AdminPage = () => {
 	const [isSearchAndReplace, setIsSearchAndReplace] = useState(true); // Toggle state for choosing between search and replace or add data functionality
 	const [customField, setCustomField] = useState(''); // Custom field input value
 	const [textToAdd, setTextToAdd] = useState(''); // Text to add in the custom field
+	const [emptyCustomField, setEmptyCustomField] = useState( false );
 
 	// Middleware setup for `apiFetch` to include nonce from `window.backVariables.nonce`
 	apiFetch.use(apiFetch.createNonceMiddleware(window.backVariables.nonce));
@@ -51,6 +52,7 @@ const AdminPage = () => {
 			customField,
 			textToAdd,
 			isSearchAndReplace,
+			emptyCustomField,
 			urls,
 			setNotice,
 		});
@@ -146,17 +148,36 @@ const AdminPage = () => {
 						id="soi_srbu-custom-field"
 						help={__('Name of the Custom Field to add the text in URLs. If the Custom Field not exist, it is created.', 'soi_srbu')}
 					/>
-					<TextControl
-						label={__('Text to Add', 'soi_srbu')}
-						value={textToAdd}
-						onChange={(value) => setTextToAdd(value)}
-						name="soi_srbu-text-to-add"
-						id="soi_srbu-text-to-add"
-						help={__(
-							'Text to add in the Custom Field in URLs. Add or replace the previous data in this Custom Field. Only work with strings or numbers depending on how is declarated.',
-							'soi_srbu'
-						)}
+					<ToggleControl
+						label={__('Clear the previous Custom Field?', 'soi_srbu')}
+						checked={emptyCustomField}
+						onChange={() => {
+							setEmptyCustomField((prev) => !prev)
+							if ( emptyCustomField ) {
+								setTextToAdd('')
+							}
+						}}
+						help={
+							! emptyCustomField
+								? __('Add text to the previous Custom Field name', 'soi_srbu')
+								: __('Clear all data from the previous Custom Field', 'soi_srbu')
+						}
 					/>
+					{
+						! emptyCustomField && (
+							<TextControl
+								label={__('Text to Add', 'soi_srbu')}
+								value={textToAdd}
+								onChange={(value) => setTextToAdd(value)}
+								name="soi_srbu-text-to-add"
+								id="soi_srbu-text-to-add"
+								help={__(
+									'Text to add in the Custom Field in URLs. Add or replace the previous data in this Custom Field. Only work with strings or numbers depending on how is declarated.',
+									'soi_srbu'
+								)}
+							/>
+						)
+					}
 				</>
 			)}
 			<Button variant="primary" onClick={handleClick}>
